@@ -1,0 +1,39 @@
+{
+  "name": "Kalkulator Sablon Kaos",
+  "short_name": "Kalkulator",
+  "description": "Hitung HPP sablon kaos dengan cepat dan akurat. Bekerja offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1E293B",
+  "theme_color": "#1E293B",
+  "orientation": "portrait-primary",
+  "lang": "id",
+  "categories": ["productivity", "business"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kalkulator",
+      "url": "./index.html#calculator",
+      "description": "Buka kalkulator HPP"
+    },
+    {
+      "name": "NOTA",
+      "url": "./index.html#rekap",
+      "description": "Lihat daftar nota"
+    }
+  ]
+}

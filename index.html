@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Kalkulator HPP Sablon Kaos – Hitung harga pokok produksi sablon dengan cepat dan akurat">
+  <meta name="theme-color" id="meta-theme-color" content="#1E293B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Kalkulator Sablon">
+  <title>Kalkulator Sablon Kaos</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+  <!-- ─── LOGIN SCREEN ─── -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-bg-orb login-orb-1"></div>
+    <div class="login-bg-orb login-orb-2"></div>
+    <div class="login-bg-orb login-orb-3"></div>
+    <div class="login-card">
+      <div class="login-logo">🧮</div>
+      <div class="login-brand">JSP INDUSTRIES</div>
+      <h1 class="login-title">Kalkulator Sablon Kaos</h1>
+      <p class="login-subtitle">Masukkan password untuk melanjutkan</p>
+      <div class="login-form">
+        <div class="login-input-wrap">
+          <span class="login-input-icon">🔒</span>
+          <input type="password" id="login-password"
+            class="login-input" placeholder="Password"
+            autocomplete="current-password"
+            onkeydown="if(event.key==='Enter') LoginManager.login()">
+          <button class="login-eye-btn" id="login-eye"
+            onclick="LoginManager.toggleShow()" type="button"
+            title="Tampilkan/sembunyikan">👁️</button>
+        </div>
+        <div class="login-error" id="login-error"></div>
+        <button class="login-btn" id="login-btn"
+          onclick="LoginManager.login()">Masuk</button>
+      </div>
+      <div class="login-footer">
+        <div class="login-footer-brand">JSP Industries</div>
+        <div class="login-footer-contact">joglo.screenprinting@gmail.com</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-shell" id="app-shell" style="display:none">
+    <!-- ─── Sidebar (Desktop ≥900px) ─── -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">🧮</div>
+        <div class="sidebar-brand-text">
+          <div class="sidebar-title">Kalkulator</div>
+          <div class="sidebar-subtitle">Sablon Kaos</div>
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav">
+        <button class="nav-btn" data-tab="calculator">
+          <span class="nav-icon">📊</span><span class="nav-label">Kalkulator</span>
+        </button>
+        <button class="nav-btn" data-tab="rekap">
+          <span class="nav-icon">📋</span><span class="nav-label">NOTA</span>
+        </button>
+        <button class="nav-btn" data-tab="settings">
+          <span class="nav-icon">⚙️</span><span class="nav-label">Pengaturan</span>
+        </button>
+        <button class="nav-btn" data-tab="about">
+          <span class="nav-icon">ℹ️</span><span class="nav-label">Tentang</span>
+        </button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-jsp">
+        <div class="sidebar-jsp-name">JSP INDUSTRIES</div>
+        <div class="sidebar-version" id="sidebar-version">v1.0</div>
+      </div>
+    </aside>
+
+    <!-- ─── Main Area ─── -->
+    <div class="main-wrapper">
+      <header class="header">
+        <h1 class="header-title" id="header-title">Kalkulator</h1>
+        <button class="btn-theme" id="theme-btn" onclick="App.toggleTheme()">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+      </header>
+
+      <main class="content">
+        <!-- ═══ TAB: KALKULATOR ═══ -->
+        <div id="tab-calculator" class="tab">
+          <div class="tab-grid">
+            <!-- Left: Inputs -->
+            <div class="tab-col-left">
+              <!-- Info Pesanan -->
+              <div class="card">
+                <div class="card-title">📦 Info Pesanan</div>
+                <div class="form-group">
+                  <label class="form-label" for="input-qty">Jumlah Pesanan (pcs)</label>
+                  <input type="number" id="input-qty" class="form-input" value="1" min="1" inputmode="numeric">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="input-bahan">Bahan Kaos</label>
+                  <select id="input-bahan" class="form-select"></select>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label" for="input-tinta">Jenis Tinta</label>
+                  <select id="input-tinta" class="form-select">
+                    <option value="Plastisol">Plastisol</option>
+                    <option value="Rubber">Rubber</option>
+                    <option value="Discharge">Discharge</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Total Warna Desain -->
+              <div class="card">
+                <div class="card-title">🎨 Total Warna Desain</div>
+                <div class="warna-table">
+                  <div class="warna-header">
+                    <div>Ukuran Sablon</div>
+                    <div class="text-center">Jml Warna</div>
+                  </div>
+                  <div id="warna-rows"></div>
+                </div>
+              </div>
+
+              <!-- Info Tambahan -->
+              <div class="card">
+                <div class="card-title">📝 Info Tambahan</div>
+                <div class="form-group">
+                  <label class="form-label" for="input-profit">Profit (%)</label>
+                  <input type="number" id="input-profit" class="form-input" value="25" min="0" inputmode="decimal">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="input-nopesanan">No. Pesanan</label>
+                  <input type="text" id="input-nopesanan" class="form-input" placeholder="Opsional">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label" for="input-customer">Nama Customer</label>
+                  <input type="text" id="input-customer" class="form-input" placeholder="Opsional">
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="btn-row">
+                <button class="btn btn-primary" id="btn-hitung" onclick="App.hitung()">🧮 Hitung</button>
+                <button class="btn btn-secondary" onclick="App.reset()">🔄 Reset</button>
+                <button class="btn btn-secondary" id="btn-simpan" onclick="App.simpanNota()" disabled>💾 Simpan</button>
+              </div>
+            </div>
+
+            <!-- Right: Results -->
+            <div class="tab-col-right">
+              <!-- Hasil Akhir -->
+              <div class="card card-hasil">
+                <div class="card-hasil-header">💰 Hasil Akhir</div>
+                <div class="hasil-pcs-block">
+                  <div class="hasil-label-row">
+                    <span class="hasil-label-small">Harga Kaos + Sablon</span>
+                    <span class="hasil-label-small text-muted">per pcs</span>
+                  </div>
+                  <div class="hasil-value-large" id="result-harga-kaos">Rp 0</div>
+                  <div class="hasil-label-row" style="margin-top:10px">
+                    <span class="hasil-label-small">Harga Sablon Saja</span>
+                    <span class="hasil-label-small text-muted">per pcs</span>
+                  </div>
+                  <div class="hasil-value-medium" id="result-harga-sablon">Rp 0</div>
+                </div>
+                <div class="hasil-divider"></div>
+                <div class="hasil-tagihan-block">
+                  <div class="tagihan-header">
+                    <span class="tagihan-label">📦 Total Tagihan</span>
+                    <span class="badge" id="result-qty">0 pcs</span>
+                  </div>
+                  <div class="hasil-value-tagihan" id="result-total-tagihan">Rp 0</div>
+                </div>
+                <div class="hasil-divider"></div>
+                <div class="hasil-stats">
+                  <div class="hasil-stat-row">
+                    <span class="hasil-stat-label">📈 Total Profit</span>
+                    <span class="hasil-stat-value text-success" id="result-profit">Rp 0</span>
+                  </div>
+                  <div class="hasil-stat-row">
+                    <span class="hasil-stat-label">📊 Total Biaya (Modal)</span>
+                    <span class="hasil-stat-value text-muted" id="result-biaya">Rp 0</span>
+                  </div>
+                </div>
+                <div class="error-msg" id="error-msg"></div>
+              </div>
+
+              <!-- Collapsible: Rincian Biaya -->
+              <div class="card collapsible-card">
+                <button class="collapsible-toggle" onclick="App.toggleSection('bd')">
+                  <span id="bd-icon" class="toggle-arrow">▶</span>
+                  <span>Rincian Biaya</span>
+                </button>
+                <div class="collapsible-content" id="bd-content"></div>
+              </div>
+
+              <!-- Collapsible: Detail Print -->
+              <div class="card collapsible-card">
+                <button class="collapsible-toggle" onclick="App.toggleSection('pr')">
+                  <span id="pr-icon" class="toggle-arrow">▶</span>
+                  <span>Detail Biaya Print</span>
+                </button>
+                <div class="collapsible-content" id="pr-content"></div>
+              </div>
+
+              <!-- Collapsible: Detail Tinta -->
+              <div class="card collapsible-card">
+                <button class="collapsible-toggle" onclick="App.toggleSection('ti')">
+                  <span id="ti-icon" class="toggle-arrow">▶</span>
+                  <span>Detail Biaya Tinta</span>
+                </button>
+                <div class="collapsible-content" id="ti-content"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ TAB: NOTA ═══ -->
+        <div id="tab-rekap" class="tab" style="display:none">
+          <div id="rekap-list"></div>
+        </div>
+
+        <!-- ═══ TAB: PENGATURAN ═══ -->
+        <div id="tab-settings" class="tab" style="display:none">
+          <div id="settings-content"></div>
+        </div>
+
+        <!-- ═══ TAB: TENTANG ═══ -->
+        <div id="tab-about" class="tab" style="display:none">
+          <div id="about-content"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ─── Bottom Navigation (Mobile <900px) ─── -->
+  <nav class="bottom-nav">
+    <button class="bottom-nav-btn" data-tab="calculator">
+      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-label">Kalkulator</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="rekap">
+      <span class="bottom-nav-icon">📋</span>
+      <span class="bottom-nav-label">NOTA</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="settings">
+      <span class="bottom-nav-icon">⚙️</span>
+      <span class="bottom-nav-label">Pengaturan</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="about">
+      <span class="bottom-nav-icon">ℹ️</span>
+      <span class="bottom-nav-label">Tentang</span>
+    </button>
+  </nav>
+
+  <script src="app.min.js"></script>
+</body>
+</html>
