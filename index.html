@@ -226,9 +226,79 @@
           </div>
         </div>
 
-        <!-- ═══ TAB: NOTA ═══ -->
+        <!-- ═══ TAB: NOTA (Customer Invoice) ═══ -->
         <div id="tab-rekap" class="tab" style="display:none">
-          <div id="rekap-list"></div>
+          <!-- Header Invoice -->
+          <div class="invoice-header-card">
+            <div class="invoice-header-left">
+              <div class="invoice-title">🧾 INVOICE / NOTA</div>
+              <div class="invoice-subtitle">Detail pesanan per ukuran kaos</div>
+            </div>
+            <div class="invoice-header-center">
+              <div class="invoice-field-row">
+                <label class="invoice-field-label">Nama Customer :</label>
+                <input type="text" id="inv-customer" class="invoice-field-input" placeholder="Nama customer">
+              </div>
+              <div class="invoice-field-row">
+                <label class="invoice-field-label">No. Nota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                <input type="text" id="inv-nonota" class="invoice-field-input inv-short" placeholder="No. nota">
+              </div>
+              <div class="invoice-field-row">
+                <label class="invoice-field-label">Keterangan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                <input type="text" id="inv-keterangan" class="invoice-field-input inv-long" placeholder="Contoh: Sablon dada full color (opsional)">
+              </div>
+            </div>
+            <div class="invoice-header-right">
+              <button class="btn btn-primary" onclick="InvoiceManager.exportPrint()">📄 Export Invoice PDF</button>
+              <button class="btn btn-secondary" style="margin-top:6px" onclick="InvoiceManager.reset()">🔄 Reset Form</button>
+            </div>
+          </div>
+
+          <!-- Tables: Lengan Panjang & Pendek -->
+          <div class="invoice-tables-grid">
+            <!-- Lengan Panjang -->
+            <div class="invoice-table-card">
+              <div class="invoice-table-title">👕 Lengan Panjang</div>
+              <div class="invoice-table-header">
+                <span>Ukuran</span><span>Jumlah</span><span>Harga / pcs</span><span>Total</span>
+              </div>
+              <div id="inv-panjang-rows" class="invoice-table-body"></div>
+              <div class="invoice-table-actions">
+                <button class="btn-inv-sm btn-inv-primary" onclick="InvoiceManager.addRow('panjang')">+ Baris</button>
+                <button class="btn-inv-sm btn-inv-secondary" onclick="InvoiceManager.removeRow('panjang')">🗑 Hapus</button>
+                <button class="btn-inv-sm btn-inv-secondary" onclick="InvoiceManager.fillDefault('panjang')">💲 Default</button>
+              </div>
+              <div class="invoice-table-footer">
+                <span id="inv-panjang-qty">Qty: 0 pcs</span>
+                <span id="inv-panjang-subtotal" class="inv-subtotal">Rp 0</span>
+              </div>
+            </div>
+
+            <!-- Lengan Pendek -->
+            <div class="invoice-table-card">
+              <div class="invoice-table-title">👕 Lengan Pendek</div>
+              <div class="invoice-table-header">
+                <span>Ukuran</span><span>Jumlah</span><span>Harga / pcs</span><span>Total</span>
+              </div>
+              <div id="inv-pendek-rows" class="invoice-table-body"></div>
+              <div class="invoice-table-actions">
+                <button class="btn-inv-sm btn-inv-primary" onclick="InvoiceManager.addRow('pendek')">+ Baris</button>
+                <button class="btn-inv-sm btn-inv-secondary" onclick="InvoiceManager.removeRow('pendek')">🗑 Hapus</button>
+                <button class="btn-inv-sm btn-inv-secondary" onclick="InvoiceManager.fillDefault('pendek')">💲 Default</button>
+              </div>
+              <div class="invoice-table-footer">
+                <span id="inv-pendek-qty">Qty: 0 pcs</span>
+                <span id="inv-pendek-subtotal" class="inv-subtotal">Rp 0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grand Total -->
+          <div class="invoice-grand-total">
+            <span class="inv-grand-label">📊 Grand Total (Lengan Panjang + Pendek)</span>
+            <span id="inv-grand-qty" class="inv-grand-qty">Qty: 0 pcs</span>
+            <span id="inv-grand-total" class="inv-grand-value">Rp 0</span>
+          </div>
         </div>
 
         <!-- ═══ TAB: PENGATURAN ═══ -->
