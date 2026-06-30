@@ -961,3 +961,164 @@ body {
 .copyright-year {
   font-size: 11px; color: #334155; margin-top: 10px;
 }
+
+/* ── New Settings UI Layout ─────────────────────────── */
+.stg-header {
+  display: grid;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+.stg-header.stg-2col { grid-template-columns: 1fr 130px; }
+
+/* Base row (grid for 2-col sections) */
+.stg-row {
+  display: grid;
+  align-items: center;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--card-border);
+  background: var(--card-bg);
+  gap: 6px;
+}
+.stg-row:last-child { border-bottom: none; }
+.stg-row.stg-2col { grid-template-columns: 1fr 130px; }
+.stg-row .form-input { padding: 6px 8px; font-size: 12px; height: 34px; }
+.stg-num { text-align: right; }
+.stg-label {
+  padding: 0 4px;
+  font-size: 12.5px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stg-btn-row {
+  display: flex;
+  gap: 8px;
+  padding: 10px 4px 4px;
+  flex-wrap: wrap;
+}
+.stg-bottom-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  flex-wrap: wrap;
+}
+.stg-bottom-row .btn { flex: 1; min-width: 140px; }
+.btn-sm { padding: 6px 14px; font-size: 12px; border-radius: var(--radius-sm); }
+.btn-outline { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); }
+.btn-outline:hover { background: var(--accent); color: #fff; }
+
+/* 4-col Tinta: flex layout — ukuran left, 3 prices right */
+.stg-header.stg-4col {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stg-hdr-ukuran { flex: 1; }
+
+.stg-row.stg-4col {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stg-ukuran-inp { flex: 1; min-width: 0; }
+
+/* Wrapper for 3 price inputs */
+.stg-p3 {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Each price column: label + input stacked */
+.stg-p-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 76px;
+}
+.stg-p-col .form-input { width: 100%; }
+
+/* Desktop: hide inline labels (header row already shows them) */
+.stg-p-label {
+  display: none;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.stg-p3-hdr {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.stg-p3-hdr span {
+  width: 76px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ── Mobile ≤560px: stack ukuran above 3 prices + show labels ── */
+@media (max-width: 560px) {
+  /* Hide table header — per-column labels take its place */
+  .stg-header.stg-4col { display: none; }
+
+  /* Each tinta row becomes its own mini-card */
+  .stg-row.stg-4col {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 8px;
+    border-bottom: 2px solid var(--card-border);
+    border-radius: 0;
+  }
+  .stg-row.stg-4col:first-child { border-top: 1px solid var(--card-border); }
+
+  /* Ukuran: full-width bold text */
+  .stg-ukuran-inp {
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  /* 3 price columns side-by-side, equal width */
+  .stg-p3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .stg-p-col {
+    width: 100%;
+    align-items: center;
+  }
+  .stg-p-col .form-input {
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    padding: 6px 4px;
+  }
+
+  /* Show the per-column labels on mobile */
+  .stg-p-label {
+    display: block;
+    color: var(--accent);
+  }
+}
+
